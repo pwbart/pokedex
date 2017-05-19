@@ -32,14 +32,31 @@ class PokemonDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let img = UIImage(named: "\(pokemon.pokedexID)")
+        mainImg.image = img
+        evoImage.image = img
+        nameLbl.text = "\(pokemon.name.capitalized)"
         
+        pokemon.downloadPokemonDetails { 
+            // whatever we write here will only be called after the network call is complete
+            
+            self.updateUI()
+        }
+    }
+    
+    func updateUI() {
+        baseAttackLbl.text = pokemon.attack
+        defenseLbl.text = pokemon.defense
+        heightLbl.text = pokemon.height
+        weightLbl.text = pokemon.weight
+        typeLbl.text = pokemon.type
     }
 
     @IBAction func backButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
    
+    
 
 
 }
